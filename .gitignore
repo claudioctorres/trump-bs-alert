@@ -55,3 +55,4 @@ nunit-*.xml*.pfx
 *.zip
 tmp-check/
 AppPackages/
+dist/
