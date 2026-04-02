@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls"
+             xmlns:vm="clr-namespace:TrumpBsAlert.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="TrumpBsAlert.Pages.MainPage"
+             x:DataType="vm:MainViewModel"
+             Title="trump-bs-alert"
+             BackgroundColor="#1E1E2E">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+
+            <!-- Status Badge -->
+            <Border BackgroundColor="{Binding StatusColor}"
+                    StrokeShape="RoundRectangle 8"
+                    Padding="12,6"
+                    HorizontalOptions="Start">
+                <Label Text="{Binding StatusText}"
+                       TextColor="White"
+                       FontSize="14"
+                       FontAttributes="Bold" />
+            </Border>
+
+            <!-- Current Rate -->
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Cotação atual"
+                       TextColor="#89B4FA"
+                       FontSize="12" />
+                <HorizontalStackLayout Spacing="8">
+                    <Label Text="{Binding CurrentRate}"
+                           TextColor="White"
+                           FontSize="36"
+                           FontAttributes="Bold" />
+                    <Label Text="{Binding BaseCurrency, StringFormat='{0}/'}"
+                           TextColor="#A6ADC8"
+                           FontSize="18"
+                           VerticalOptions="End"
+                           Margin="0,0,0,6" />
+                    <Label Text="{Binding QuoteCurrency}"
+                           TextColor="#A6ADC8"
+                           FontSize="18"
+                           VerticalOptions="End"
+                           Margin="-8,0,0,6" />
+                </HorizontalStackLayout>
+                <Label Text="{Binding LastUpdated, StringFormat='Atualizado: {0}'}"
+                       TextColor="#6C7086"
+                       FontSize="11" />
+            </VerticalStackLayout>
+
+            <!-- 30-day Chart -->
+            <Border BackgroundColor="#313244"
+                    StrokeShape="RoundRectangle 8"
+                    Padding="8"
+                    HeightRequest="250">
+                <Grid>
+                    <!-- Chart -->
+                    <skia:SKCanvasView x:Name="ChartCanvas"
+                                       PaintSurface="OnChartPaintSurface"
+                                       IsVisible="{Binding IsChartLoading, Converter={toolkit:InvertedBoolConverter}}" />
+
+                    <!-- Loading skeleton -->
+                    <ActivityIndicator IsRunning="{Binding IsChartLoading}"
+                                        IsVisible="{Binding IsChartLoading}"
+                                        Color="#89B4FA"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center" />
+
+                    <!-- Error state -->
+                    <VerticalStackLayout IsVisible="{Binding ChartErrorMessage, Converter={toolkit:IsNotNullConverter}}"
+                                          HorizontalOptions="Center"
+                                          VerticalOptions="Center"
+                                          Spacing="8">
+                        <Label Text="{Binding ChartErrorMessage}"
+                               TextColor="#F38BA8"
+                               HorizontalTextAlignment="Center" />
+                        <Button Text="Tentar novamente"
+                                Command="{Binding RetryLoadChartCommand}"
+                                BackgroundColor="#45475A"
+                                TextColor="White"
+                                CornerRadius="4"
+                                HeightRequest="36" />
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <!-- Currency Pair -->
+            <Border BackgroundColor="#313244"
+                    StrokeShape="RoundRectangle 8"
+                    Padding="16">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Par de moedas" TextColor="#89B4FA" FontSize="12" />
+                    <HorizontalStackLayout Spacing="8">
+                        <Entry Text="{Binding BaseCurrency}"
+                               Placeholder="USD"
+                               WidthRequest="80"
+                               BackgroundColor="#45475A"
+                               TextColor="White"
+                               PlaceholderColor="#6C7086"
+                               MaxLength="3" />
+                        <Label Text="/"
+                               TextColor="#A6ADC8"
+                               FontSize="20"
+                               VerticalOptions="Center" />
+                        <Entry Text="{Binding QuoteCurrency}"
+                               Placeholder="BRL"
+                               WidthRequest="80"
+                               BackgroundColor="#45475A"
+                               TextColor="White"
+                               PlaceholderColor="#6C7086"
+                               MaxLength="3" />
+                        <Button Text="Alterar"
+                                Command="{Binding ChangeCurrencyPairCommand}"
+                                BackgroundColor="#89B4FA"
+                                TextColor="#1E1E2E"
+                                CornerRadius="4"
+                                HeightRequest="36"
+                                VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Threshold -->
+            <Border BackgroundColor="#313244"
+                    StrokeShape="RoundRectangle 8"
+                    Padding="16">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Limite de alerta" TextColor="#89B4FA" FontSize="12" />
+                    <HorizontalStackLayout Spacing="8">
+                        <Entry Text="{Binding ThresholdText}"
+                               Placeholder="Ex: 5.50"
+                               Keyboard="Numeric"
+                               WidthRequest="120"
+                               BackgroundColor="#45475A"
+                               TextColor="White"
+                               PlaceholderColor="#6C7086" />
+                        <Button Text="Salvar"
+                                Command="{Binding SaveThresholdCommand}"
+                                BackgroundColor="#A6E3A1"
+                                TextColor="#1E1E2E"
+                                CornerRadius="4"
+                                HeightRequest="36"
+                                VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Interval -->
+            <Border BackgroundColor="#313244"
+                    StrokeShape="RoundRectangle 8"
+                    Padding="16">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Intervalo de consulta" TextColor="#89B4FA" FontSize="12" />
+                    <Picker ItemsSource="{Binding IntervalOptions}"
+                            SelectedIndex="{Binding SelectedIntervalIndex}"
+                            BackgroundColor="#45475A"
+                            TextColor="White"
+                            WidthRequest="120"
+                            HorizontalOptions="Start">
+                        <Picker.Behaviors>
+                            <toolkit:EventToCommandBehavior
+                                EventName="SelectedIndexChanged"
+                                Command="{Binding ChangeIntervalCommand}" />
+                        </Picker.Behaviors>
+                    </Picker>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Session History -->
+            <Border BackgroundColor="#313244"
+                    StrokeShape="RoundRectangle 8"
+                    Padding="16">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Histórico da sessão" TextColor="#89B4FA" FontSize="12" />
+                    <CollectionView ItemsSource="{Binding SessionHistory}"
+                                     MaximumHeightRequest="300">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <Label Text="{Binding .}"
+                                       TextColor="#CDD6F4"
+                                       FontSize="13"
+                                       FontFamily="Consolas"
+                                       Padding="4,2" />
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                        <CollectionView.EmptyView>
+                            <Label Text="Nenhuma leitura ainda"
+                                   TextColor="#6C7086"
+                                   FontSize="13"
+                                   Padding="4,2" />
+                        </CollectionView.EmptyView>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Minimize to tray -->
+            <HorizontalStackLayout Spacing="8">
+                <CheckBox IsChecked="{Binding IsMinimizeToTray}"
+                          Color="#89B4FA" />
+                <Label Text="Minimizar para bandeja ao fechar"
+                       TextColor="#A6ADC8"
+                       FontSize="13"
+                       VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

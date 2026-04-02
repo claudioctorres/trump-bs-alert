@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:TrumpBsAlert.ViewModels"
+             x:Class="TrumpBsAlert.Pages.AlertPage"
+             x:DataType="vm:AlertViewModel"
+             BackgroundColor="#B91C1C"
+             Title="ALERTA">
+
+    <VerticalStackLayout VerticalOptions="Center"
+                          HorizontalOptions="Center"
+                          Spacing="12"
+                          Padding="24">
+
+        <Label Text="&#x26A0; ALERTA DE C&#xC2;MBIO"
+               TextColor="White"
+               FontSize="20"
+               FontAttributes="Bold"
+               HorizontalTextAlignment="Center" />
+
+        <Label Text="{Binding RateText}"
+               TextColor="White"
+               FontSize="48"
+               FontAttributes="Bold"
+               HorizontalTextAlignment="Center" />
+
+        <Label Text="{Binding TimestampText}"
+               TextColor="#FECACA"
+               FontSize="14"
+               HorizontalTextAlignment="Center" />
+
+        <Button Text="Entendido"
+                Command="{Binding AcknowledgeCommand}"
+                BackgroundColor="White"
+                TextColor="#B91C1C"
+                FontAttributes="Bold"
+                FontSize="18"
+                CornerRadius="8"
+                HeightRequest="50"
+                WidthRequest="200"
+                Margin="0,16,0,0"
+                HorizontalOptions="Center" />
+
+    </VerticalStackLayout>
+</ContentPage>

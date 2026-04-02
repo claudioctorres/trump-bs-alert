@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter</value></resheader>
+  <data name="StatusMonitoring" xml:space="preserve"><value>Monitorando</value></data>
+  <data name="StatusNoThreshold" xml:space="preserve"><value>Sem limite definido</value></data>
+  <data name="StatusAlertActive" xml:space="preserve"><value>Alerta ativo</value></data>
+  <data name="StatusFetchError" xml:space="preserve"><value>Erro na última busca</value></data>
+  <data name="CurrentRate" xml:space="preserve"><value>Cotação atual</value></data>
+  <data name="CurrencyPair" xml:space="preserve"><value>Par de moedas</value></data>
+  <data name="AlertThreshold" xml:space="preserve"><value>Limite de alerta</value></data>
+  <data name="PollingInterval" xml:space="preserve"><value>Intervalo de consulta</value></data>
+  <data name="SessionHistory" xml:space="preserve"><value>Histórico da sessão</value></data>
+  <data name="NoReadingsYet" xml:space="preserve"><value>Nenhuma leitura ainda</value></data>
+  <data name="Save" xml:space="preserve"><value>Salvar</value></data>
+  <data name="Change" xml:space="preserve"><value>Alterar</value></data>
+  <data name="Retry" xml:space="preserve"><value>Tentar novamente</value></data>
+  <data name="ChartLoadError" xml:space="preserve"><value>Não foi possível carregar o histórico</value></data>
+  <data name="AlertTitle" xml:space="preserve"><value>ALERTA DE CÂMBIO</value></data>
+  <data name="Acknowledged" xml:space="preserve"><value>Entendido</value></data>
+  <data name="TrayOpen" xml:space="preserve"><value>Abrir</value></data>
+  <data name="TrayExit" xml:space="preserve"><value>Sair</value></data>
+</root>
