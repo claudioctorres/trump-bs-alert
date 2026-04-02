@@ -12,7 +12,10 @@
     <ApplicationId>com.trumpbsalert.app</ApplicationId>
 
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+    <!-- WindowsPackageType=None for debug; MSIX for release (set via CLI) -->
     <WindowsPackageType>None</WindowsPackageType>
+    <PackageCertificateKeyFile Condition="'$(WindowsPackageType)' != 'None'">TrumpBsAlert.pfx</PackageCertificateKeyFile>
+    <PackageCertificatePassword Condition="'$(WindowsPackageType)' != 'None'">TrumpBsAlert2026</PackageCertificatePassword>
     <RootNamespace>TrumpBsAlert</RootNamespace>
     <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
     <ApplicationVersion>1</ApplicationVersion>
